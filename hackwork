@@ -1,0 +1,32 @@
+# xgboost
+
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+# Importing the dataset
+dataset = pd.read_csv('breast_cancer.csv')
+X = dataset.iloc[:,: 300].values
+y = dataset.iloc[:,: 25].values
+
+# Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+
+# Fitting XGBoost to the Training set
+from xgboost import XGBClassifier
+classifier = XGBClassifier()
+classifier.fit(X_train, y_train)
+
+#converting string into float
+import numpy as np
+cols = [0:2]
+for col in cols:
+    y[col] = y[col].astype(dtype=np.float64)
+    y.info()   
+    
+# Predicting the Test set results
+y_pred = classifier.predict(X_test)    
